@@ -1,5 +1,4 @@
 const mongoose = require('mongoose');
-require('dotenv').config();
 
 // MongoDB Connection URI
 const MONGODB_URI = process.env.MONGODB_URI || 'mongodb://localhost:27017/your_database_name';
@@ -17,7 +16,7 @@ const options = {
 // Create the connection
 const connectDB = async () => {
     try {
-        const conn = await mongoose.connect(MONGODB_URI, options);
+        const conn = await mongoose.connect(MONGODB_URI);
         console.log(`MongoDB Connected: ${conn.connection.host}`);
         
         // Get the default connection

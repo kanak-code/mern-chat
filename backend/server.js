@@ -1,12 +1,16 @@
+
+require('dotenv').config();
 const express = require('express');
 const app = express();
 const http = require('http');
 const server = http.createServer(app);
 const { Server } = require("socket.io");
 const cors = require('cors');
-
+const connectDB = require("./config/dbConfig")
 // Enable CORS for all routes
 app.use(cors());
+
+connectDB();
 
 // Create Socket.IO instance with CORS configuration
 const io = new Server(server, {
@@ -49,7 +53,7 @@ io.on('connection', (socket) => {
         io.to(data.room).emit('message', data.message);
     });
 });
-
+app.use(express.json({ limit: '10kb' }));  
 const PORT = process.env.PORT || 5000;
 
 app.get('/', (req, res) => {
@@ -58,6 +62,9 @@ app.get('/', (req, res) => {
         message: 'Api is running'
     })
 })
+
+require("./config/routeConfig")(app)
+
 
 server.listen(PORT, () => {
     console.log(`Server running on port ${PORT}`);
