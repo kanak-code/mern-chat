@@ -3,6 +3,7 @@ const Chat = require("../models/chatModel");
 
 
 exports.accessChat = async (req, res) => {
+    console.log("123456");
     try {
         const { userId } = req.body;
         const loggedUserId = req.user._id;
@@ -22,8 +23,9 @@ exports.accessChat = async (req, res) => {
             .populate('users', '-password')
             .populate('latestMessage.sender', '-password')
 
+            console.log('chatDetails>>>>>', chatDetails);
 
-        if (chatDetails) {
+        if (chatDetails?.length > 0 ) {
             return res.send(chatDetails);
         } else {
             const createdChat = await Chat.create({
@@ -32,9 +34,13 @@ exports.accessChat = async (req, res) => {
                 users: [loggedUserId, userId],
             });
 
+            console.log('createdChat>>>>>', createdChat);
+
+
             const fullChat = await Chat.findOne({
                 _id: createdChat._id
             }).populate("users", "-password")
+            console.log('fullChat>>>>>', fullChat);
 
             res.status(200).json(fullChat);
         }
@@ -211,6 +217,7 @@ exports.addInGroup = async (req, res) => {
             res.json(added);
         }
     } catch (error) {
+        console.log('error<<<<addInGroup', error);
         res.status(500).json({ error: error.message });
     }
 };

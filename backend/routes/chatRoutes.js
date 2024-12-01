@@ -5,11 +5,11 @@ module.exports = (app) => {
   const { accessChat, featchChatDB, createGroupChat, renameGroup, removeFromGroup, addInGroup } = require('../controllers/chatController');
 
   router.get("/", authVerify, featchChatDB);
-  router.post("/", authVerify, accessChat);
+  router.post("/accessChat", authVerify, accessChat);
   router.post("/create-group", authVerify, createGroupChat);
   router.post("/rename-group", authVerify, renameGroup);
-  router.get("/remove-from-group", authVerify, removeFromGroup);
-  router.get("/add-in-group", authVerify, addInGroup);
+  router.post("/remove-from-group", authVerify, removeFromGroup);
+  router.post("/add-in-group", authVerify, addInGroup);
 
 
   // Use the router for your app

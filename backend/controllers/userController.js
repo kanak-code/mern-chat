@@ -90,8 +90,10 @@ exports.allUsers = async (req, res) => {
             ...keyword,
             _id: { $ne: req.user._id }, // Exclude the logged-in user
         });
+        console.log('users>>>>>>>>>>>>>>>>', users);
         res.send(users);
     } catch (error) {
+        console.log('error<<<<<allUsers', error);
         res.status(500).json({ error: error.message });
     }
 };

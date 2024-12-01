@@ -53,7 +53,7 @@ io.on('connection', (socket) => {
         io.to(data.room).emit('message', data.message);
     });
 });
-app.use(express.json({ limit: '10kb' }));  
+app.use(express.json());  
 const PORT = process.env.PORT || 5000;
 
 app.get('/', (req, res) => {

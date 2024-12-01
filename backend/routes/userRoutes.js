@@ -5,9 +5,9 @@ module.exports = (app) => {
 
     const {register,login,allUsers} = require('../controllers/userController');
   
+    router.get("/",authVerify, allUsers);
     router.post("/sign-in", login);
     router.post("/sign-up", register);
-    router.get("/getUser",authVerify, allUsers);
   
   
     // Use the router for your app
